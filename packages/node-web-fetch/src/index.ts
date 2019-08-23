@@ -29,6 +29,7 @@ async function fetch<T>(config: CrawlerConfig | ScraperConfig): Promise<FetchRes
 
 export {
   fetch,
+  FetchResult,
   CrawlerConfig,
   ScraperConfig,
 };
