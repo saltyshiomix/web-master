@@ -15,11 +15,11 @@ const isScraperConfig = (config: any): config is ScraperConfig => {
   return typeof config.target === 'string';
 }
 
-type TResult<T> = T extends Array<infer R> ? R[] : T;
+type FetchResult<T> = T extends Array<infer R> ? R[] : T;
 
-async function fetch<T>(config: CrawlerConfig | ScraperConfig): Promise<TResult<T>> {
+async function fetch<T>(config: CrawlerConfig | ScraperConfig): Promise<FetchResult<T>> {
   if (isCrawlerConfig(config)) {
-    return crawl(config) as Promise<TResult<T>>;
+    return crawl(config) as Promise<FetchResult<T>>;
   }
   if (isScraperConfig(config)) {
     return scrape(config);
