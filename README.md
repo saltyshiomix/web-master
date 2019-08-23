@@ -16,9 +16,9 @@ WIP.
 ## Roadmaps
 
 - [ ] README
-- [ ] develop packages
+- [ ] packages
   - [x] lerna monorepo development
   - [x] @web-master/node-web-fetch
   - [x] @web-master/node-web-scraper
   - [x] @web-master/node-web-crawler
-  - [x] @web-master/nest-crawler
+  - [ ] @web-master/nest-crawler
