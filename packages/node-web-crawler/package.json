@@ -18,6 +18,9 @@
     "url": "https://github.com/saltyshiomix/web-master/issues",
     "email": "shiono.yoshihide@gmail.com"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "files": [
     "dist",
