@@ -1,0 +1,55 @@
+{
+  "name": "@web-master/node-web-fetch",
+  "version": "0.0.0",
+  "description": "Fetch web data as easy as possible",
+  "repository": "git@github.com:saltyshiomix/web-master.git",
+  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/saltyshiomix/web-master/tree/master/packages/node-web-fetch",
+  "keywords": [
+    "fetch",
+    "crawler",
+    "scraper",
+    "node",
+    "nodejs",
+    "node.js",
+    "typescript",
+    "web"
+  ],
+  "bugs": {
+    "url": "https://github.com/saltyshiomix/web-master/issues",
+    "email": "shiono.yoshihide@gmail.com"
+  },
+  "main": "index.js",
+  "files": [
+    "dist",
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "test": "ava",
+    "build": "rimraf dist && tsc --project tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@web-master/node-web-crawler": "^0.0.0",
+    "@web-master/node-web-scraper": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.13",
+    "@types/node": "^12.7.2",
+    "ava": "^2.3.0",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  }
+}
