@@ -7,6 +7,7 @@
   <a href="https://npm.im/@web-master/node-web-fetch" alt="Downloads of @web-master/node-web-fetch">
     <img src="https://img.shields.io/npm/dt/@web-master/node-web-fetch.svg">
   </a>
+  <img src="https://img.shields.io/npm/l/@web-master/node-web-fetch.svg" alt="Package License (MIT)">
 </p>
 
 ## Description

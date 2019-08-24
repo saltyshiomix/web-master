@@ -7,6 +7,7 @@
   <a href="https://npm.im/@web-master/node-web-crawler" alt="Downloads of @web-master/node-web-crawler">
     <img src="https://img.shields.io/npm/dt/@web-master/node-web-crawler.svg">
   </a>
+  <img src="https://img.shields.io/npm/l/@web-master/node-web-crawler.svg" alt="Package License (MIT)">
 </p>
 
 ## Description
