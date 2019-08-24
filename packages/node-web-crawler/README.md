@@ -34,13 +34,12 @@ const data = await crawl({
       convert: (path) => `https://news.ycombinator.com/${path}`,
     },
   },
-  fetch: {
+  fetch: () => ({
     title: '.title',
-  },
+  }),
 });
 
 console.log(data);
-
 // [
 //   { title: 'An easiest crawling and scraping module for NestJS' },
 //   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
@@ -75,13 +74,12 @@ const data: HackerNewsPage[] = await crawl({
       convert: (path) => `https://news.ycombinator.com/${path}`,
     },
   },
-  fetch: {
+  fetch: () => ({
     title: '.title',
-  },
+  }),
 });
 
 console.log(data);
-
 // [
 //   { title: 'An easiest crawling and scraping module for NestJS' },
 //   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },

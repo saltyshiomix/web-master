@@ -21,11 +21,12 @@ interface CrawlLinkOptions {
     selector: string;
     convert?: (link: string) => string;
   };
+  fetch?: ScrapeOptions;
 }
 
 interface CrawlerConfig {
   target: string[] | CrawlLinkOptions;
-  fetch: ScrapeOptions;
+  fetch: (data?: any) => ScrapeOptions;
 }
 
 const isArrayString = (value: any): boolean => {
@@ -56,28 +57,33 @@ const extractUrls = (holder: UrlHolder, convert?: (link: string) => string): str
   return urls;
 }
 
-const resolve = async (possibleUrls: string[] | CrawlLinkOptions): Promise<string[]> => {
+const resolve = async (possibleUrls: string[] | CrawlLinkOptions): Promise<[string[], any]> => {
   if (isArrayString(possibleUrls)) {
-    return possibleUrls as string[];
+    return [possibleUrls as string[], undefined];
   }
 
-  const { url, crawl: iterator } = possibleUrls as CrawlLinkOptions;
+  const { url, crawl, fetch } = possibleUrls as CrawlLinkOptions;
+
   let holder: UrlHolder;
-  if (typeof iterator === 'string') {
+  if (typeof crawl === 'string') {
     holder = await scrape({
       target: url,
       fetch: {
         urls: {
-          listItem: iterator,
+          listItem: crawl,
           data: {
             url: { attr: 'href' },
           },
         },
       },
     });
-    return extractUrls(holder);
+
+    if (fetch) {
+      return [extractUrls(holder), await scrape<any>({ target: url, fetch })];
+    }
+    return [extractUrls(holder), undefined];
   } else {
-    const { selector, convert } = iterator;
+    const { selector, convert } = crawl;
     holder = await scrape({
       target: url,
       fetch: {
@@ -89,14 +95,17 @@ const resolve = async (possibleUrls: string[] | CrawlLinkOptions): Promise<strin
         },
       },
     });
-    return extractUrls(holder, convert);
+    if (fetch) {
+      return [extractUrls(holder, convert), await scrape<any>({ target: url, fetch })];
+    }
+    return [extractUrls(holder, convert), undefined];
   }
 }
 
 async function crawl<T>(config: CrawlerConfig): Promise<T[]> {
   const { target, fetch } = config;
-  const urls: string[] = await resolve(target);
-  return crawlAll<T>(urls, fetch);
+  const [urls, data] = await resolve(target);
+  return crawlAll<T>(urls, fetch(data));
 }
 
 async function crawlAll<T>(urls: string[], options: ScrapeOptions): Promise<T[]> {

@@ -14,9 +14,9 @@ test('it can crawl multi pages', async t => {
         convert: (path) => `https://news.ycombinator.com/${path}`,
       },
     },
-    fetch: {
+    fetch: () => ({
       title: '.title',
-    },
+    }),
   });
 
   t.is(pages.length, 30);
