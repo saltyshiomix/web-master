@@ -9,7 +9,7 @@ test('it can crawl multi pages', async t => {
   const pages: HackerNewsPage[] = await crawl({
     target: {
       url: 'https://news.ycombinator.com',
-      iterator: {
+      crawl: {
         selector: 'span.age > a',
         convert: (path) => `https://news.ycombinator.com/${path}`,
       },

@@ -17,7 +17,7 @@ interface UrlHolder {
 
 interface CrawlLinkOptions {
   url: string;
-  iterator: string | {
+  crawl: string | {
     selector: string;
     convert?: (link: string) => string;
   };
@@ -61,7 +61,7 @@ const resolve = async (possibleUrls: string[] | CrawlLinkOptions): Promise<strin
     return possibleUrls as string[];
   }
 
-  const { url, iterator } = possibleUrls as CrawlLinkOptions;
+  const { url, crawl: iterator } = possibleUrls as CrawlLinkOptions;
   let holder: UrlHolder;
   if (typeof iterator === 'string') {
     holder = await scrape({
