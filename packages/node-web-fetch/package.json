@@ -1,6 +1,6 @@
 {
   "name": "@web-master/node-web-fetch",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Fetch web data as easy as possible",
   "repository": "git@github.com:saltyshiomix/web-master.git",
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
@@ -35,8 +35,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@web-master/node-web-crawler": "^0.2.2",
-    "@web-master/node-web-scraper": "^0.2.2"
+    "@web-master/node-web-crawler": "^0.2.3",
+    "@web-master/node-web-scraper": "^0.2.3"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.13",

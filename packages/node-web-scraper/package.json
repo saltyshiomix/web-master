@@ -1,6 +1,6 @@
 {
   "name": "@web-master/node-web-scraper",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Scrape web as easy as possible",
   "repository": "git@github.com:saltyshiomix/web-master.git",
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
