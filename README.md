@@ -1,5 +1,5 @@
 <p align="center">😎 Web Master 😎</p>
-<p align="center">Web mastering tools we need</p>
+<p align="center">Web mastering tools</p>
 
 ## Packages
 
@@ -17,8 +17,7 @@ WIP.
 
 - [ ] README
 - [ ] packages
-  - [x] lerna monorepo development
   - [x] @web-master/node-web-fetch
   - [x] @web-master/node-web-scraper
   - [x] @web-master/node-web-crawler
-  - [ ] @web-master/nest-crawler
+  - [ ] and more...
