@@ -1,12 +1,14 @@
-/// <reference types="cheerio" />
-
-import * as scrapeIt from 'scrape-it';
+import * as got from 'got';
+import * as htmlparser2 from 'htmlparser2';
+import { Node } from 'domhandler';
 import { ScraperConfig } from '../interfaces';
+import core from './core';
 
 async function scrape<T>(config: ScraperConfig): Promise<T> {
   const { target, fetch } = config;
-  const { data } = await scrapeIt(target, fetch);
-  return data;
+  const { body } = await got(target);
+  const nodes: Node[] = htmlparser2.parseDOM(body);
+  return core(fetch, nodes);
 }
 
 export default scrape;

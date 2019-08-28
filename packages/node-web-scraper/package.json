@@ -36,11 +36,13 @@
     "@types/cheerio": "^0.22.13",
     "css-select": "^2.0.2",
     "domutils": "^2.0.0",
+    "got": "^9.6.0",
     "htmlparser2": "^4.0.0",
     "puppeteer": "^1.19.0",
     "scrape-it": "^5.1.4"
   },
   "devDependencies": {
+    "@types/got": "^9.6.7",
     "@types/node": "^12.7.2",
     "@types/puppeteer": "^1.19.1",
     "ava": "^2.3.0",
