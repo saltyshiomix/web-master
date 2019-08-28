@@ -33,10 +33,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@types/cheerio": "^0.22.13",
     "scrape-it": "^5.1.4"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.13",
     "@types/node": "^12.7.2",
     "ava": "^2.3.0",
     "rimraf": "^3.0.0",
