@@ -11,9 +11,9 @@ import {
   Element,
 } from 'domhandler';
 import {
-  isOptionString,
-  isOptionElement,
-  isOptionList,
+  isScrapeOptionString,
+  isScrapeOptionElement,
+  isScrapeOptionList,
 } from '../utils';
 import {
   ScrapeOptions,
@@ -36,13 +36,13 @@ const evaluate = <T>(options: ScrapeOptions, nodes: Node | Node[]): T => {
 };
 
 const performEvaluate = <T>(option: string | ScrapeOptionElement | ScrapeOptionList, nodes: Node | Node[]): FetchResult<T> => {
-  if (isOptionString(option)) {
+  if (isScrapeOptionString(option)) {
     return evaluateOptionString(option, nodes);
   }
-  if (isOptionElement(option)) {
+  if (isScrapeOptionElement(option)) {
     return evaluateOptionElement(option, nodes);
   }
-  if (isOptionList(option)) {
+  if (isScrapeOptionList(option)) {
     return evaluateOptionList(option, nodes);
   }
   throw new Error('InvalidProgramException');

@@ -1,13 +1,17 @@
 import {
   fetch,
   FetchResult,
-  CrawlerConfig,
-  ScraperConfig,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
 } from './dist';
 export {
   fetch,
   FetchResult,
-  CrawlerConfig,
-  ScraperConfig,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
 }
 export default fetch;

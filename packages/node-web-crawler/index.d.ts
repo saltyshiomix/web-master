@@ -1,21 +1,13 @@
 import {
   crawl,
-  CrawlerConfig,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
   CrawlLinkOptions,
-  ScraperConfig,
-  ScrapeOptions,
-  ScrapeOptionElement,
-  ScrapeOptionList,
-  ScrapeResult,
 } from './dist';
 export {
   crawl,
-  CrawlerConfig,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
   CrawlLinkOptions,
-  ScraperConfig,
-  ScrapeOptions,
-  ScrapeOptionElement,
-  ScrapeOptionList,
-  ScrapeResult,
 };
 export default crawl;

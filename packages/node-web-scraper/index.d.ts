@@ -1,19 +1,25 @@
 import {
   scrape,
-  ScraperConfig,
-  ScraperConfigPuppeteer,
+  isScrapeConfigDefault,
+  isScrapeConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
   ScrapeResult,
+  FetchResult,
 } from './dist';
 export {
   scrape,
-  ScraperConfig,
-  ScraperConfigPuppeteer,
+  isScrapeConfigDefault,
+  isScrapeConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
   ScrapeResult,
+  FetchResult,
 };
 export default scrape;

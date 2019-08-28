@@ -1,21 +1,22 @@
 import {
-  isConfigDefault,
-  isConfigPuppeteer,
+  isScrapeConfigDefault,
+  isScrapeConfigPuppeteer,
 } from './utils';
 import {
-  ScraperConfig,
-  ScraperConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
   ScrapeResult,
 } from './interfaces';
+import { FetchResult } from './types';
 
-async function scrape<T>(config: ScraperConfig | ScraperConfigPuppeteer): Promise<T> {
-  if (isConfigDefault(config)) {
+async function scrape<T>(config: ScrapeConfig | ScrapeConfigPuppeteer): Promise<FetchResult<T>> {
+  if (isScrapeConfigDefault(config)) {
     return (await import('./scrapers/default')).default(config);
   }
-  if (isConfigPuppeteer(config)) {
+  if (isScrapeConfigPuppeteer(config)) {
     return (await import('./scrapers/puppeteer')).default(config);
   }
   throw new Error('InvalidProgramException');
@@ -23,12 +24,15 @@ async function scrape<T>(config: ScraperConfig | ScraperConfigPuppeteer): Promis
 
 export {
   scrape,
-  ScraperConfig,
-  ScraperConfigPuppeteer,
+  isScrapeConfigDefault,
+  isScrapeConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
   ScrapeResult,
+  FetchResult,
 };
 
 export default scrape;

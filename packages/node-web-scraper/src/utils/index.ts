@@ -1,34 +1,34 @@
 import {
-  ScraperConfig,
-  ScraperConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
   ScrapeOptionElement,
   ScrapeOptionList,
 } from '../interfaces';
 
-const isConfigDefault = (config: any): config is ScraperConfig => {
-  return !isConfigPuppeteer(config);
+const isScrapeConfigDefault = (config: any): config is ScrapeConfig => {
+  return !isScrapeConfigPuppeteer(config);
 }
 
-const isConfigPuppeteer = (config: any): config is ScraperConfigPuppeteer => {
+const isScrapeConfigPuppeteer = (config: any): config is ScrapeConfigPuppeteer => {
   return config.waitFor && typeof config.waitFor === 'number';
 }
 
-const isOptionString = (options: any): options is string => {
+const isScrapeOptionString = (options: any): options is string => {
   return typeof options === 'string';
 }
 
-const isOptionElement = (options: any): options is ScrapeOptionElement => {
-  return !isOptionString(options) && !isOptionList(options);
+const isScrapeOptionElement = (options: any): options is ScrapeOptionElement => {
+  return !isScrapeOptionString(options) && !isScrapeOptionList(options);
 }
 
-const isOptionList = (options: any): options is ScrapeOptionList => {
+const isScrapeOptionList = (options: any): options is ScrapeOptionList => {
   return typeof options.listItem === 'string';
 }
 
 export {
-  isConfigDefault,
-  isConfigPuppeteer,
-  isOptionString,
-  isOptionElement,
-  isOptionList,
+  isScrapeConfigDefault,
+  isScrapeConfigPuppeteer,
+  isScrapeOptionString,
+  isScrapeOptionElement,
+  isScrapeOptionList,
 };

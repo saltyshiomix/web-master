@@ -1,9 +1,9 @@
-interface ScraperConfig {
+interface ScrapeConfig {
   target: string;
   fetch: ScrapeOptions;
 }
 
-interface ScraperConfigPuppeteer extends ScraperConfig {
+interface ScrapeConfigPuppeteer extends ScrapeConfig {
   waitFor: number;
 }
 
@@ -27,8 +27,8 @@ interface ScrapeResult<T> {
 }
 
 export {
-  ScraperConfig,
-  ScraperConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
