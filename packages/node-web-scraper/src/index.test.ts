@@ -40,8 +40,6 @@ test('it can scrape one page as a object (with waiting)', async t => {
     },
   });
 
-  t.log(actual);
-
   t.is(actual.title, 'Example Domain');
   t.is(actual.info, 'http://www.iana.org/domains/example');
 });
