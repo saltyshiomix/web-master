@@ -22,6 +22,8 @@ $ npm install --save @web-master/node-web-crawler
 
 ## Usage
 
+### Basic
+
 ```js
 import crawl from '@web-master/node-web-crawler';
 
@@ -34,6 +36,36 @@ const data = await crawl({
       convert: (path) => `https://news.ycombinator.com/${path}`,
     },
   },
+  fetch: () => ({
+    title: '.title',
+  }),
+});
+
+console.log(data);
+// [
+//   { title: 'An easiest crawling and scraping module for NestJS' },
+//   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
+//   ...
+//   ...
+//   { title: '[Experimental] React SSR as a view template engine' }
+// ]
+```
+
+### Waitable (by using `puppeteer`)
+
+```js
+import crawl from '@web-master/node-web-crawler';
+
+// crawl data on each link
+const data = await crawl({
+  target: {
+    url: 'https://news.ycombinator.com',
+    iterator: {
+      selector: 'span.age > a',
+      convert: (path) => `https://news.ycombinator.com/${path}`,
+    },
+  },
+  waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
   fetch: () => ({
     title: '.title',
   }),
