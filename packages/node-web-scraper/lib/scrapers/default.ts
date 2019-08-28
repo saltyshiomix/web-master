@@ -1,7 +1,7 @@
 import * as got from 'got';
 import * as htmlparser2 from 'htmlparser2';
 import { Node } from 'domhandler';
-import { ScrapeConfig } from '../interfaces';
+import { ScrapeConfig } from '../../../../interfaces';
 import core from './core';
 
 async function scrape<T>(config: ScrapeConfig): Promise<T> {

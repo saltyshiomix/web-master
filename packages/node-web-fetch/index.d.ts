@@ -1,17 +1,15 @@
+import fetch from './dist/packages/node-web-fetch/lib/index';
 import {
-  fetch,
-  FetchResult,
-  CrawlConfig,
-  CrawlConfigPuppeteer,
   ScrapeConfig,
   ScrapeConfigPuppeteer,
-} from './dist';
-export {
-  fetch,
-  FetchResult,
   CrawlConfig,
   CrawlConfigPuppeteer,
-  ScrapeConfig,
-  ScrapeConfigPuppeteer,
-}
+} from './dist/interfaces';
+
 export default fetch;
+export {
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
+}

@@ -1,3 +1,11 @@
+interface UrlObject {
+  url: string;
+}
+
+interface UrlHolder {
+  urls: UrlObject[];
+}
+
 interface ScrapeConfig {
   target: string;
   fetch: ScrapeOptions;
@@ -22,15 +30,32 @@ interface ScrapeOptionList {
   data?: ScrapeOptions;
 }
 
-interface ScrapeResult<T> {
-  data: T;
+interface CrawlConfig {
+  target: string[] | CrawlLinkOptions;
+  fetch: (data?: any, index?: number, url?: string) => ScrapeOptions;
+}
+
+interface CrawlConfigPuppeteer extends CrawlConfig {
+  waitFor: number;
+}
+
+interface CrawlLinkOptions {
+  url: string;
+  iterator: string | {
+    selector: string;
+    convert?: (x: string) => string;
+  };
+  fetch?: ScrapeOptions;
 }
 
 export {
+  UrlHolder,
   ScrapeConfig,
   ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
-  ScrapeResult,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
+  CrawlLinkOptions,
 };

@@ -1,4 +1,3 @@
-const crawl = require('./dist').default;
+const crawl = require('./dist/packages/node-web-crawler/lib/index').default;
 module.exports = crawl;
-module.exports.crawl = crawl;
 module.exports.default = crawl;

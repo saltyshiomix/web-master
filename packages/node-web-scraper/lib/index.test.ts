@@ -22,7 +22,7 @@ test('it can scrape one page as a object', async t => {
   t.is(actual.info, 'http://www.iana.org/domains/example');
 });
 
-test('it can scrape one page as a object (with waiting)', async t => {
+test('it can scrape one page as a object (waitable)', async t => {
   interface ExampleCom {
     title: string;
     info: string;
@@ -30,7 +30,7 @@ test('it can scrape one page as a object (with waiting)', async t => {
 
   const actual: ExampleCom = await scrape({
     target: 'http://example.com',
-    waitFor: 3 * 1000,
+    waitFor: 1 * 1000,
     fetch: {
       title: 'h1',
       info: {

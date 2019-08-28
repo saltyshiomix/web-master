@@ -1,13 +1,13 @@
+import crawl from './dist/packages/node-web-crawler/lib/index';
 import {
-  crawl,
   CrawlConfig,
   CrawlConfigPuppeteer,
   CrawlLinkOptions,
-} from './dist';
+} from './dist/interfaces';
+
+export default crawl;
 export {
-  crawl,
   CrawlConfig,
   CrawlConfigPuppeteer,
   CrawlLinkOptions,
 };
-export default crawl;

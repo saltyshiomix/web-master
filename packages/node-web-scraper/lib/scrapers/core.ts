@@ -14,13 +14,14 @@ import {
   isScrapeOptionString,
   isScrapeOptionElement,
   isScrapeOptionList,
-} from '../utils';
+} from '../../../../utils';
 import {
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
-} from '../interfaces';
-import { FetchResult } from '../types';
+} from '../../../../interfaces';
+
+type FetchResult<T> = T extends Array<infer R> ? R[] : T;
 
 const evaluate = <T>(options: ScrapeOptions, nodes: Node | Node[]): T => {
   const result: any = {};
@@ -35,17 +36,18 @@ const evaluate = <T>(options: ScrapeOptions, nodes: Node | Node[]): T => {
   return result;
 };
 
-const performEvaluate = <T>(option: string | ScrapeOptionElement | ScrapeOptionList, nodes: Node | Node[]): FetchResult<T> => {
+const performEvaluate = <T>(option: string | ScrapeOptionElement | ScrapeOptionList, nodes: Node | Node[]): T => {
+  let result: any;
   if (isScrapeOptionString(option)) {
-    return evaluateOptionString(option, nodes);
+    result = evaluateOptionString(option, nodes);
   }
   if (isScrapeOptionElement(option)) {
-    return evaluateOptionElement(option, nodes);
+    result = evaluateOptionElement(option, nodes);
   }
   if (isScrapeOptionList(option)) {
-    return evaluateOptionList(option, nodes);
+    result = evaluateOptionList(option, nodes);
   }
-  throw new Error('InvalidProgramException');
+  return result;
 };
 
 const evaluateOptionString = <T>(options: string, nodes: Node | Node[]): T => {
@@ -60,26 +62,22 @@ const evaluateOptionString = <T>(options: string, nodes: Node | Node[]): T => {
 };
 
 const evaluateOptionElement = <T>(options: ScrapeOptionElement, nodes: Node | Node[]): T => {
-  let result: any = null;
-  let node: Node | null = Array.isArray(nodes) ? nodes[0] : nodes;
-
+  let result: any = getText(nodes);
+  let node: Node | null = Array.isArray(nodes) ? null : nodes;
   if (options.selector) {
     node = selectOne(options.selector, nodes);
     if (node) {
       result = getText(node);
     }
   }
-
   if (options.attr) {
     if (node) {
       result = getAttributeValue(node as Element, options.attr);
     }
   }
-
   if (options.convert) {
     result = options.convert(result);
   }
-
   return result;
 };
 
