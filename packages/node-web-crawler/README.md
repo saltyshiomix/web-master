@@ -51,14 +51,6 @@ console.log(data);
 
 ## TypeScript Support
 
-First, add `@types/cheerio` as dev dependencies:
-
-```bash
-$ npm install --save-dev @types/cheerio
-```
-
-Then, just use it with interfaces or types:
-
 ```ts
 import crawl from '@web-master/node-web-crawler';
 
