@@ -98,7 +98,7 @@ const data = await fetch({
     'https://example3.com',
   ],
   fetch: () => ({
-    title: '.title',
+    title: 'h1',
   }),
 });
 
@@ -125,7 +125,7 @@ const data = await fetch({
     },
   },
   fetch: () => ({
-    title: '.title',
+    title: '[class="title"] > a',
   }),
 });
 
@@ -155,7 +155,7 @@ const data = await fetch({
   },
   waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
   fetch: () => ({
-    title: '.title',
+    title: '[class="title"] > a',
   }),
 });
 
@@ -188,7 +188,7 @@ const data: HackerNewsPage[] = await fetch({
     },
   },
   fetch: () => ({
-    title: '.title',
+    title: '[class="title"] > a',
   }),
 });
 

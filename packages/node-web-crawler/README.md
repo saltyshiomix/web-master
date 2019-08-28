@@ -37,7 +37,7 @@ const data = await crawl({
     },
   },
   fetch: () => ({
-    title: '.title',
+    title: '[class="title"] > a',
   }),
 });
 
@@ -67,7 +67,7 @@ const data = await crawl({
   },
   waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
   fetch: () => ({
-    title: '.title',
+    title: '[class="title"] > a',
   }),
 });
 
@@ -99,7 +99,7 @@ const data: HackerNewsPage[] = await crawl({
     },
   },
   fetch: () => ({
-    title: '.title',
+    title: '[class="title"] > a',
   }),
 });
 
