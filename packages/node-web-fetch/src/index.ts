@@ -1,27 +1,28 @@
 import {
-  crawl,
-  CrawlerConfig,
-} from '@web-master/node-web-crawler';
-import {
   scrape,
-  ScraperConfig,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
+  FetchResult,
 } from '@web-master/node-web-scraper';
+import {
+  crawl,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
+} from '@web-master/node-web-crawler';
 
-const isCrawlerConfig = (config: any): config is CrawlerConfig => {
-  return !isScraperConfig(config);
+const isCrawlConfig = (config: any): config is CrawlConfig | CrawlConfigPuppeteer => {
+  return !isScrapeConfig(config);
 }
 
-const isScraperConfig = (config: any): config is ScraperConfig => {
+const isScrapeConfig = (config: any): config is ScrapeConfig | ScrapeConfigPuppeteer => {
   return typeof config.target === 'string';
 }
 
-type FetchResult<T> = T extends Array<infer R> ? R[] : T;
-
-async function fetch<T>(config: CrawlerConfig | ScraperConfig): Promise<FetchResult<T>> {
-  if (isCrawlerConfig(config)) {
-    return crawl(config) as Promise<FetchResult<T>>;
+async function fetch<T>(config: CrawlConfig | CrawlConfigPuppeteer | ScrapeConfig | ScrapeConfigPuppeteer): Promise<FetchResult<T>> {
+  if (isCrawlConfig(config)) {
+    return crawl<T>(config) as Promise<FetchResult<T>>;
   }
-  if (isScraperConfig(config)) {
+  if (isScrapeConfig(config)) {
     return scrape(config);
   }
   throw new Error('config must be one of CrawlerConfig or ScraperConfig');
@@ -30,8 +31,10 @@ async function fetch<T>(config: CrawlerConfig | ScraperConfig): Promise<FetchRes
 export {
   fetch,
   FetchResult,
-  CrawlerConfig,
-  ScraperConfig,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
 };
 
 export default fetch;

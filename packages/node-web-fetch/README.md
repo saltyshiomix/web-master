@@ -19,11 +19,11 @@ It can:
 - FETCH
   - SCRAPE
     - It scrapes the specific page
-    - It gathers data from the page according to the `ScraperConfig`
+    - It gathers data from the page according to the `ScrapeConfig`
   - CRAWL
     - It scrapes the specific page and gather links
     - It crawls the links and scrapes each page of the link
-    - It gathers data from each page according to `CrawlerConfig`
+    - It gathers data from each page according to `CrawlConfig`
 
 ## Installation
 
@@ -35,11 +35,38 @@ $ npm install --save @web-master/node-web-fetch
 
 ### Single Page Scraping
 
+#### Basic
+
 ```js
 import fetch from '@web-master/node-web-fetch';
 
 const data = await fetch({
   target: 'http://example.com',
+  fetch: {
+    title: 'h1',
+    info: {
+      selector: 'p > a',
+      attr: 'href',
+    },
+  },
+});
+
+console.log(data);
+
+// {
+//   title: 'Example Domain',
+//   info: 'http://www.iana.org/domains/example'
+// }
+```
+
+#### Waitable (by using `puppeteer`)
+
+```js
+import fetch from '@web-master/node-web-fetch';
+
+const data = await fetch({
+  target: 'http://example.com',
+  waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
   fetch: {
     title: 'h1',
     info: {
@@ -70,9 +97,9 @@ const data = await fetch({
     'https://example2.com',
     'https://example3.com',
   ],
-  fetch: {
+  fetch: () => ({
     title: '.title',
-  },
+  }),
 });
 
 console.log(data);
@@ -97,9 +124,39 @@ const data = await fetch({
       convert: (path) => `https://news.ycombinator.com/${path}`,
     },
   },
-  fetch: {
+  fetch: () => ({
     title: '.title',
+  }),
+});
+
+console.log(data);
+
+// [
+//   { title: 'An easiest crawling and scraping module for NestJS' },
+//   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
+//   ...
+//   ...
+//   { title: '[Experimental] React SSR as a view template engine' }
+// ]
+```
+
+#### Waitable (by using `puppeteer`)
+
+```js
+import fetch from '@web-master/node-web-fetch';
+
+const data = await fetch({
+  target: {
+    url: 'https://news.ycombinator.com',
+    iterator: {
+      selector: 'span.age > a',
+      convert: (path) => `https://news.ycombinator.com/${path}`,
+    },
   },
+  waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
+  fetch: () => ({
+    title: '.title',
+  }),
 });
 
 console.log(data);
@@ -130,9 +187,9 @@ const data: HackerNewsPage[] = await fetch({
       convert: (path) => `https://news.ycombinator.com/${path}`,
     },
   },
-  fetch: {
+  fetch: () => ({
     title: '.title',
-  },
+  }),
 });
 
 console.log(data);

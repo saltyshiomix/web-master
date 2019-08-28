@@ -22,11 +22,38 @@ $ npm install --save @web-master/node-web-scraper
 
 ## Usage
 
+### Basic
+
 ```js
 import scrape from '@web-master/node-web-scraper';
 
 const data = await scrape({
   target: 'http://example.com',
+  fetch: {
+    title: 'h1',
+    info: {
+      selector: 'p > a',
+      attr: 'href',
+    },
+  },
+});
+
+console.log(data);
+
+// {
+//   title: 'Example Domain',
+//   info: 'http://www.iana.org/domains/example'
+// }
+```
+
+### Waitable (by using `puppeteer`)
+
+```js
+import scrape from '@web-master/node-web-scraper';
+
+const data = await scrape({
+  target: 'http://example.com',
+  waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
   fetch: {
     title: 'h1',
     info: {

@@ -1,33 +1,17 @@
 import {
   scrape,
-  ScraperConfig,
+  isScrapeConfigDefault,
+  isScrapeConfigPuppeteer,
+  ScrapeConfig,
+  ScrapeConfigPuppeteer,
   ScrapeOptions,
-  ScrapeOptionElement,
-  ScrapeOptionList,
-  ScrapeResult,
 } from '@web-master/node-web-scraper';
-
-interface UrlObject {
-  url: string;
-}
-
-interface UrlHolder {
-  urls: UrlObject[];
-}
-
-interface CrawlLinkOptions {
-  url: string;
-  crawl: string | {
-    selector: string;
-    convert?: (link: string) => string;
-  };
-  fetch?: ScrapeOptions;
-}
-
-interface CrawlerConfig {
-  target: string[] | CrawlLinkOptions;
-  fetch: (data?: any, index?: number) => ScrapeOptions;
-}
+import {
+  UrlHolder,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
+  CrawlLinkOptions,
+} from './interfaces';
 
 const isArrayString = (value: any): boolean => {
   if (Array.isArray(value)) {
@@ -62,15 +46,15 @@ const resolve = async (possibleUrls: string[] | CrawlLinkOptions): Promise<[stri
     return [possibleUrls as string[], undefined];
   }
 
-  const { url, crawl, fetch } = possibleUrls as CrawlLinkOptions;
+  const { url, iterator, fetch } = possibleUrls as CrawlLinkOptions;
 
   let holder: UrlHolder;
-  if (typeof crawl === 'string') {
+  if (typeof iterator === 'string') {
     holder = await scrape({
       target: url,
       fetch: {
         urls: {
-          listItem: crawl,
+          listItem: iterator,
           data: {
             url: { attr: 'href' },
           },
@@ -84,7 +68,7 @@ const resolve = async (possibleUrls: string[] | CrawlLinkOptions): Promise<[stri
     }
     return [urls, undefined];
   } else {
-    const { selector, convert } = crawl;
+    const { selector, convert } = iterator;
     holder = await scrape({
       target: url,
       fetch: {
@@ -105,32 +89,40 @@ const resolve = async (possibleUrls: string[] | CrawlLinkOptions): Promise<[stri
   }
 }
 
-async function crawl<T>(config: CrawlerConfig): Promise<T[]> {
-  const { target, fetch } = config;
-  const [urls, data] = await resolve(target);
-  return crawlAll<T>(urls, fetch, data);
+async function crawl<T>(config: CrawlConfig | CrawlConfigPuppeteer): Promise<T[]> {
+  if (isScrapeConfigDefault(config)) {
+    const { target, fetch } = config;
+    const [urls, data] = await resolve(target);
+    return crawlAll<T>(urls, fetch, data);
+  }
+  if (isScrapeConfigPuppeteer(config)) {
+    const { target, fetch, waitFor } = config;
+    const [urls, data] = await resolve(target);
+    return crawlAll<T>(urls, fetch, data, waitFor);
+  }
+  throw new Error('InvalidProgramException');
 }
 
-async function crawlAll<T>(urls: string[], fetch: (data?: any, index?: number) => ScrapeOptions, data: any): Promise<T[]> {
-  const results = [];
+async function crawlAll<T>(urls: string[], fetch: (data?: any, index?: number) => ScrapeOptions, data: any, waitFor?: number): Promise<T[]> {
+  const results: any[] = [];
   for (let i = 0; i < urls.length; i++) {
-    results.push(await scrape<T>({
+    let config: ScrapeConfig | ScrapeConfigPuppeteer = {
       target: urls[i],
       fetch: fetch(data, i),
-    }));
+    };
+    if (waitFor) {
+      config = Object.assign(config, { waitFor });
+    }
+    results.push(await scrape<T>(config));
   }
   return results;
 }
 
 export {
   crawl,
-  CrawlerConfig,
+  CrawlConfig,
+  CrawlConfigPuppeteer,
   CrawlLinkOptions,
-  ScraperConfig,
-  ScrapeOptions,
-  ScrapeOptionElement,
-  ScrapeOptionList,
-  ScrapeResult,
 };
 
 export default crawl;
