@@ -1,6 +1,7 @@
 import {
   scrape,
   ScraperConfig,
+  ScraperConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
@@ -9,6 +10,7 @@ import {
 export {
   scrape,
   ScraperConfig,
+  ScraperConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,

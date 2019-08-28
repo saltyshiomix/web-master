@@ -22,6 +22,30 @@ test('it can scrape one page as a object', async t => {
   t.is(actual.info, 'http://www.iana.org/domains/example');
 });
 
+test('it can scrape one page as a object (with waiting)', async t => {
+  interface ExampleCom {
+    title: string;
+    info: string;
+  }
+
+  const actual: ExampleCom = await scrape({
+    target: 'http://example.com',
+    waitFor: 3 * 1000,
+    fetch: {
+      title: 'h1',
+      info: {
+        selector: 'p > a',
+        attr: 'href',
+      },
+    },
+  });
+
+  t.log(actual);
+
+  t.is(actual.title, 'Example Domain');
+  t.is(actual.info, 'http://www.iana.org/domains/example');
+});
+
 test('it can scrape one page as a list object', async t => {
   interface Wikipadia {
     urls: string[];

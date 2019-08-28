@@ -1,49 +1,30 @@
-/// <reference types="cheerio" />
+import {
+  isConfigDefault,
+  isConfigPuppeteer,
+} from './utils';
+import {
+  ScraperConfig,
+  ScraperConfigPuppeteer,
+  ScrapeOptions,
+  ScrapeOptionElement,
+  ScrapeOptionList,
+  ScrapeResult,
+} from './interfaces';
 
-import * as scrapeIt from 'scrape-it';
-
-interface ScrapeOptions {
-  [key: string]: string | ScrapeOptionList | ScrapeOptionElement;
-}
-
-interface ScrapeOptionElement {
-  selector?: string;
-  convert?: (value: any) => any;
-  how?: string | ((element: CheerioSelector) => any);
-  attr?: string;
-  trim?: boolean;
-  closest?: string;
-  eq?: number;
-  texteq?: number;
-}
-
-interface ScrapeOptionList {
-  listItem: string;
-  data?: ScrapeOptions;
-  convert?: (value: any) => any;
-}
-
-interface ScrapeResult<T> {
-  data: T,
-  $: Cheerio,
-  response: any,
-  body: string
-}
-
-interface ScraperConfig {
-  target: string;
-  fetch: ScrapeOptions;
-}
-
-async function scrape<T>(config: ScraperConfig): Promise<T> {
-  const { target, fetch } = config;
-  const { data } = await scrapeIt(target, fetch);
-  return data;
+async function scrape<T>(config: ScraperConfig | ScraperConfigPuppeteer): Promise<T> {
+  if (isConfigDefault(config)) {
+    return (await import('./scrapers/default')).default(config);
+  }
+  if (isConfigPuppeteer(config)) {
+    return (await import('./scrapers/puppeteer')).default(config);
+  }
+  throw new Error('InvalidProgramException');
 }
 
 export {
   scrape,
   ScraperConfig,
+  ScraperConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,

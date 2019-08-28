@@ -34,10 +34,15 @@
   },
   "dependencies": {
     "@types/cheerio": "^0.22.13",
+    "css-select": "^2.0.2",
+    "domutils": "^2.0.0",
+    "htmlparser2": "^4.0.0",
+    "puppeteer": "^1.19.0",
     "scrape-it": "^5.1.4"
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
+    "@types/puppeteer": "^1.19.1",
     "ava": "^2.3.0",
     "rimraf": "^3.0.0",
     "ts-node": "^8.3.0",
