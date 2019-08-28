@@ -1,7 +1,7 @@
 import * as puppeteer from 'puppeteer';
 import * as htmlparser2 from 'htmlparser2';
 import { Node } from 'domhandler';
-import { ScrapeConfigPuppeteer } from '../../../../interfaces';
+import { ScrapeConfig } from '../../../../interfaces';
 import core from './core';
 
 const parseDOM = async (url: string, waitFor: number): Promise<Node[]> => {
@@ -28,9 +28,9 @@ const parseDOM = async (url: string, waitFor: number): Promise<Node[]> => {
   return nodes;
 };
 
-async function scrape<T>(config: ScrapeConfigPuppeteer): Promise<T> {
+async function scrape<T>(config: ScrapeConfig): Promise<T> {
   const { target, waitFor, fetch } = config;
-  const nodes: Node[] = await parseDOM(target, waitFor);
+  const nodes: Node[] = await parseDOM(target, waitFor as number);
   return core(fetch, nodes);
 }
 

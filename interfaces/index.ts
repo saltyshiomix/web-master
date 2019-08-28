@@ -8,11 +8,8 @@ interface UrlHolder {
 
 interface ScrapeConfig {
   target: string;
+  waitFor?: number;
   fetch: ScrapeOptions;
-}
-
-interface ScrapeConfigPuppeteer extends ScrapeConfig {
-  waitFor: number;
 }
 
 interface ScrapeOptions {
@@ -32,11 +29,8 @@ interface ScrapeOptionList {
 
 interface CrawlConfig {
   target: string[] | CrawlLinkOptions;
-  fetch: (data?: any, index?: number, url?: string) => ScrapeOptions;
-}
-
-interface CrawlConfigPuppeteer extends CrawlConfig {
-  waitFor: number;
+  waitFor?: number;
+  fetch: (data: any, index: number, url: string) => ScrapeOptions;
 }
 
 interface CrawlLinkOptions {
@@ -51,11 +45,9 @@ interface CrawlLinkOptions {
 export {
   UrlHolder,
   ScrapeConfig,
-  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
   CrawlConfig,
-  CrawlConfigPuppeteer,
   CrawlLinkOptions,
 };

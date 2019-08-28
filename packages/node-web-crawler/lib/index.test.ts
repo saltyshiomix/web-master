@@ -11,50 +11,39 @@ test('it can crawl multi pages', async t => {
       url: 'https://news.ycombinator.com',
       iterator: {
         selector: 'span.age > a',
-        convert: (path) => `https://news.ycombinator.com/${path}`,
+        convert: (x: string) => `https://news.ycombinator.com/${x}`,
       },
     },
-    fetch: (data, index, url) => {
-      t.log(url);
-      t.log(data);
+    fetch: (data: any, index: number, url: string) => {
       return {
-        title: '.title',
+        title: '[class="title"] > a',
       };
     },
   });
 
   t.is(pages.length, 30);
-
-
-
-
-  t.log(pages[0]);
-
-
-
-
   t.true(pages[0].title !== '');
 });
 
-// test('it can crawl multi pages (waitable)', async t => {
-//   interface HackerNewsPage {
-//     title: string;
-//   }
+test('it can crawl multi pages (waitable)', async t => {
+  interface HackerNewsPage {
+    title: string;
+  }
 
-//   const pages: HackerNewsPage[] = await crawl({
-//     target: {
-//       url: 'https://news.ycombinator.com',
-//       iterator: {
-//         selector: 'span.age > a',
-//         convert: (path) => `https://news.ycombinator.com/${path}`,
-//       },
-//     },
-//     waitFor: 1 * 1000,
-//     fetch: () => ({
-//       title: '.title',
-//     }),
-//   });
+  const pages: HackerNewsPage[] = await crawl({
+    target: {
+      url: 'https://news.ycombinator.com',
+      iterator: {
+        selector: 'span.age > a',
+        convert: (x: string) => `https://news.ycombinator.com/${x}`,
+      },
+    },
+    waitFor: 1 * 1000,
+    fetch: (data: any, index: number, url: string) => ({
+      title: '[class="title"] > a',
+    }),
+  });
 
-//   t.is(pages.length, 30);
-//   t.true(pages[0].title !== '');
-// });
+  t.is(pages.length, 30);
+  t.true(pages[0].title !== '');
+});

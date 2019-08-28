@@ -1,7 +1,6 @@
 import scrape from './dist/packages/node-web-scraper/lib/index';
 import {
   ScrapeConfig,
-  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
@@ -10,7 +9,6 @@ import {
 export default scrape;
 export {
   ScrapeConfig,
-  ScrapeConfigPuppeteer,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,

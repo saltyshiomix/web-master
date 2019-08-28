@@ -1,17 +1,17 @@
 import {
   ScrapeConfig,
-  ScrapeConfigPuppeteer,
   ScrapeOptionElement,
   ScrapeOptionList,
   CrawlLinkOptions,
+  CrawlConfig,
 } from '../interfaces';
 
-const isScrapeConfigDefault = (config: any): config is ScrapeConfig => {
-  return !isScrapeConfigPuppeteer(config);
-};
+const getConfigType = (config: any): 'puppeteer' | 'default' => {
+  return typeof config.waitFor === 'number' ? 'puppeteer' : 'default';
+}
 
-const isScrapeConfigPuppeteer = (config: any): config is ScrapeConfigPuppeteer => {
-  return typeof config.waitFor === 'number';
+const isScrapeConfig = (config: any): config is ScrapeConfig => {
+  return typeof (config as ScrapeConfig).target === 'string';
 };
 
 const isScrapeOptionString = (options: any): options is string => {
@@ -26,15 +26,20 @@ const isScrapeOptionList = (options: any): options is ScrapeOptionList => {
   return typeof options.listItem === 'string';
 };
 
+const isCrawlConfig = (config: any): config is CrawlConfig => {
+  return !isScrapeConfig(config);
+};
+
 const isCrawlLinkOptions = (options: any): options is CrawlLinkOptions => {
   return typeof options === 'object' && typeof options.url === 'string';
 };
 
 export {
-  isScrapeConfigDefault,
-  isScrapeConfigPuppeteer,
+  getConfigType,
+  isScrapeConfig,
   isScrapeOptionString,
   isScrapeOptionElement,
   isScrapeOptionList,
+  isCrawlConfig,
   isCrawlLinkOptions,
 };

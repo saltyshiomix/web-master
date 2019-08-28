@@ -1,21 +1,8 @@
-import {
-  ScrapeConfig,
-  ScrapeConfigPuppeteer,
-} from '../../../interfaces';
-import {
-  isScrapeConfigDefault,
-  isScrapeConfigPuppeteer,
-} from '../../../utils';
+import { ScrapeConfig } from '../../../interfaces';
+import { getConfigType } from '../../../utils';
 
-async function scrape<T>(config: ScrapeConfig | ScrapeConfigPuppeteer): Promise<T> {
-  let result: any;
-  if (isScrapeConfigDefault(config)) {
-    result = (await import('./scrapers/default')).default(config);
-  }
-  if (isScrapeConfigPuppeteer(config)) {
-    result = (await import('./scrapers/puppeteer')).default(config);
-  }
-  return result;
+async function scrape<T>(config: ScrapeConfig): Promise<T> {
+  return (await import(`./scrapers/${getConfigType(config)}`)).default(config);
 }
 
 export default scrape;

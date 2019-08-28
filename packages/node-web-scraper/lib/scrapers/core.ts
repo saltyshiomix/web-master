@@ -4,6 +4,7 @@ import {
 } from 'css-select';
 import {
   getText,
+  getChildren,
   getAttributeValue,
 } from 'domutils';
 import {
@@ -50,14 +51,22 @@ const performEvaluate = <T>(option: string | ScrapeOptionElement | ScrapeOptionL
   return result;
 };
 
+const getTextRecursively = (nodes: Node[]): string => {
+  let result: string = '';
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    const children: Node[] | null = getChildren(node);
+    result += children ? getTextRecursively(children) : getText(node).trim();
+  }
+  return result;
+};
+
 const evaluateOptionString = <T>(options: string, nodes: Node | Node[]): T => {
   let result: any = null;
-
   const node: Node | null = selectOne(options, nodes);
   if (node) {
-    result = getText(node);
+    result = getText(node).trim();
   }
-
   return result;
 };
 
@@ -83,7 +92,6 @@ const evaluateOptionElement = <T>(options: ScrapeOptionElement, nodes: Node | No
 
 const evaluateOptionList = <T>(options: ScrapeOptionList, nodes: Node | Node[]): FetchResult<T> => {
   const results: any[] = [];
-
   nodes = selectAll(options.listItem, nodes);
   for (let i = 0; i < nodes.length; i++) {
     const node: Node = nodes[i];
@@ -93,7 +101,6 @@ const evaluateOptionList = <T>(options: ScrapeOptionList, nodes: Node | Node[]):
     }
     results.push(evaluated);
   }
-
   return results as FetchResult<T>;
 };
 

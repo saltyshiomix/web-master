@@ -4,13 +4,9 @@ import {
   ScrapeConfig,
   ScrapeOptions,
   CrawlConfig,
-  CrawlConfigPuppeteer,
   CrawlLinkOptions,
 } from '../../../interfaces';
-import {
-  isScrapeConfigPuppeteer,
-  isCrawlLinkOptions,
-} from '../../../utils';
+import { isCrawlLinkOptions } from '../../../utils';
 
 const extractUrls = (holder: UrlHolder, convert?: (link: string) => string): string[] => {
   const urls: string[] = [];
@@ -60,14 +56,13 @@ const resolve = async (options: string[] | CrawlLinkOptions, waitFor?: number): 
   return [urls, data];
 }
 
-async function crawl<T>(config: CrawlConfig | CrawlConfigPuppeteer): Promise<T[]> {
-  const { target, fetch } = config;
-  const waitFor: number | undefined = isScrapeConfigPuppeteer(config) ? config.waitFor : undefined;
+async function crawl<T>(config: CrawlConfig): Promise<T[]> {
+  const { target, waitFor, fetch } = config;
   const [urls, data] = await resolve(target, waitFor);
   return crawlAll(urls, fetch, data, waitFor);
 }
 
-async function crawlAll<T>(urls: string[], fetch: (data?: any, index?: number, url?: string) => ScrapeOptions, data: any, waitFor?: number): Promise<T[]> {
+async function crawlAll<T>(urls: string[], fetch: (data: any, index: number, url: string) => ScrapeOptions, data: any, waitFor?: number): Promise<T[]> {
   const results: any[] = [];
   for (let i = 0; i < urls.length; i++) {
     let config: ScrapeConfig = {
