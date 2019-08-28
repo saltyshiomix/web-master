@@ -5,7 +5,7 @@
   "repository": "git@github.com:saltyshiomix/web-master.git",
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/saltyshiomix/web-master/tree/master/packages/node-web-scraper",
+  "homepage": "https://github.com/saltyshiomix/web-master/tree/master/packages/node-web-scraper/README.md",
   "keywords": [
     "scraper",
     "node",
