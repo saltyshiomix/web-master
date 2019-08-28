@@ -1,6 +1,6 @@
 {
   "name": "@web-master/node-web-crawler",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Crawl web as easy as possible",
   "repository": "git@github.com:saltyshiomix/web-master.git",
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
@@ -33,7 +33,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@web-master/node-web-scraper": "^0.5.0"
+    "@web-master/node-web-scraper": "^0.6.0"
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
