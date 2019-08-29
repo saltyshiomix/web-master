@@ -19,9 +19,7 @@ const parseDOM = async (url: string, waitFor: number): Promise<Node[]> => {
   const handle = await page.evaluateHandle(() => document.documentElement.innerHTML);
   const dom: string = await handle.jsonValue();
   const nodes = htmlparser2.parseDOM(dom, {
-    xmlMode: true,
-    decodeEntities: true,
-    normalizeWhitespace: false,
+    normalizeWhitespace: true,
   });
 
   await browser.close();

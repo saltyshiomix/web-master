@@ -7,7 +7,9 @@ import core from './core';
 async function scrape<T>(config: ScrapeConfig): Promise<T> {
   const { target, fetch } = config;
   const { body } = await got(target);
-  const nodes: Node[] = htmlparser2.parseDOM(body);
+  const nodes: Node[] = htmlparser2.parseDOM(body, {
+    normalizeWhitespace: true,
+  });
   return core(fetch, nodes);
 }
 

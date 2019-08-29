@@ -147,7 +147,7 @@ test('it can scrape one page as a list object', async t => {
     target: 'https://www.wikipedia.org',
     fetch: {
       urls: {
-        listItem: '.central-featured-lang',
+        listItem: '[class="central-featured-lang"]',
         data: {
           url: {
             selector: 'a',
