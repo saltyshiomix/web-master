@@ -71,18 +71,21 @@ console.log(data);
 ```ts
 import scrape from '@web-master/node-web-scraper';
 
-interface Wikipadia {
-  urls: string[];
+interface WikiSite {
+  url: string;
 }
 
-const data: Wikipadia = await scrape({
+interface Wikipedia {
+  sites: WikiSite[];
+}
+
+const wiki: Wikipedia = await scrape({
   target: 'https://www.wikipedia.org',
   fetch: {
-    urls: {
-      listItem: '.central-featured-lang',
+    sites: {
+      listItem: '[class="central-featured"] a[class="link-box"]',
       data: {
         url: {
-          selector: 'a',
           attr: 'href',
           convert: (x: string) => `https:${x}`,
         },
@@ -91,14 +94,14 @@ const data: Wikipadia = await scrape({
   },
 });
 
-console.log(data);
+console.log(wiki.sites);
 
 // [
-//   'https://en.wikipedia.org/',
-//   'https://ja.wikipedia.org/',
+//   { url: 'https://en.wikipedia.org/' },
+//   { url: 'https://ja.wikipedia.org/' },
 //   ...
 //   ...
-//   'https://de.wikipedia.org/'
+//   { url: 'https://de.wikipedia.org/' }
 // ]
 ```
 
