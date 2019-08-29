@@ -159,4 +159,5 @@ test('it can scrape one page as a list object', async t => {
   });
 
   t.is(actual.urls.length, 10);
+  t.true(actual.urls[0].indexOf('//') === 0);
 });
