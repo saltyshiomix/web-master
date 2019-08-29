@@ -53,7 +53,7 @@ test('it can crawl multi pages', async t => {
     target: {
       url: 'https://news.ycombinator.com',
       iterator: {
-        selector: 'span.age > a',
+        selector: 'span[class="age"] > a',
         convert: (x: string) => `https://news.ycombinator.com/${x}`,
       },
     },
@@ -75,7 +75,7 @@ test('it can crawl multi pages (waitable)', async t => {
     target: {
       url: 'https://news.ycombinator.com',
       iterator: {
-        selector: 'span.age > a',
+        selector: 'span[class="age"] > a',
         convert: (x: string) => `https://news.ycombinator.com/${x}`,
       },
     },
