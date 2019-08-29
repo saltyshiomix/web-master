@@ -12,7 +12,7 @@
 
 ## Description
 
-It crawls the target page, collects links and scrapes data on each link page :)
+It crawls the target page, collects links and scrapes data on each page :)
 
 ## Installation
 
@@ -32,8 +32,8 @@ const data = await crawl({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span.age > a',
-      convert: (path) => `https://news.ycombinator.com/${path}`,
+      selector: 'span[class="age"] > a',
+      convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   fetch: () => ({
@@ -61,8 +61,8 @@ const data = await crawl({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span.age > a',
-      convert: (path) => `https://news.ycombinator.com/${path}`,
+      selector: 'span[class="age"] > a',
+      convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
@@ -90,12 +90,12 @@ interface HackerNewsPage {
   title: string;
 }
 
-const data: HackerNewsPage[] = await crawl({
+const pages: HackerNewsPage[] = await crawl({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span.age > a',
-      convert: (path) => `https://news.ycombinator.com/${path}`,
+      selector: 'span[class="age"] > a',
+      convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   fetch: () => ({
@@ -103,7 +103,7 @@ const data: HackerNewsPage[] = await crawl({
   }),
 });
 
-console.log(data);
+console.log(pages);
 // [
 //   { title: 'An easiest crawling and scraping module for NestJS' },
 //   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
