@@ -64,7 +64,7 @@ test('it can scrape text content', async t => {
   t.is(actual.body, 'Example Domain This domain is established to be used for illustrative examples in documents. You may use this domain in examples without prior coordination or asking for permission. More information...');
 });
 
-test('it can scrape one hacker news title - part 1', async t => {
+test('it can scrape one hacker news title', async t => {
   interface HackerNews {
     title: string;
   }
@@ -78,22 +78,6 @@ test('it can scrape one hacker news title - part 1', async t => {
 
   t.is(actual.title, 'How we reduced deployment times by 95%');
 });
-
-// TODO
-// test('it can scrape one hacker news title - part 2', async t => {
-//   interface HackerNews {
-//     title: string;
-//   }
-
-//   const actual: HackerNews = await scrape({
-//     target: 'https://news.ycombinator.com/item?id=20821022',
-//     fetch: {
-//       title: '[class="title"]',
-//     },
-//   });
-
-//   t.is(actual.title, 'How we reduced deployment times by 95%');
-// });
 
 test('it can scrape one page as a object', async t => {
   interface ExampleCom {
