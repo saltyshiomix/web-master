@@ -58,7 +58,7 @@ test('it can crawl multi pages', async t => {
       },
     },
     fetch: () => ({
-      title: '.title',
+      title: '[class="title"] > a',
     }),
   });
 
@@ -81,7 +81,7 @@ test('it can crawl multi pages (waitable)', async t => {
     },
     waitFor: 1 * 1000,
     fetch: () => ({
-      title: '.title',
+      title: '[class="title"] > a',
     }),
   });
 
