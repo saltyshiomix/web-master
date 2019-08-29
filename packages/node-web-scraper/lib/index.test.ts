@@ -46,7 +46,7 @@ test('it can scrape first tag', async t => {
     },
   });
 
-  t.is(actual.description, 'This domain is established to be used for illustrative examples in documents. You may use this\n    domain in examples without prior coordination or asking for permission.');
+  t.is(actual.description, 'This domain is established to be used for illustrative examples in documents. You may use this domain in examples without prior coordination or asking for permission.');
 });
 
 test('it can scrape text content', async t => {
@@ -61,7 +61,7 @@ test('it can scrape text content', async t => {
     },
   });
 
-  t.is(actual.body, 'Example Domain\n    This domain is established to be used for illustrative examples in documents. You may use this\n    domain in examples without prior coordination or asking for permission.\n    More information...');
+  t.is(actual.body, 'Example Domain This domain is established to be used for illustrative examples in documents. You may use this domain in examples without prior coordination or asking for permission. More information...');
 });
 
 test('it can scrape one hacker news title - part 1', async t => {
@@ -139,25 +139,29 @@ test('it can scrape one page as a object (waitable)', async t => {
 });
 
 test('it can scrape one page as a list object', async t => {
-  interface Wikipadia {
-    urls: string[];
+  interface WikiSite {
+    url: string;
   }
 
-  const actual: Wikipadia = await scrape({
+  interface Wikipedia {
+    sites: WikiSite[];
+  }
+
+  const actual: Wikipedia = await scrape({
     target: 'https://www.wikipedia.org',
     fetch: {
-      urls: {
-        listItem: '[class="central-featured-lang"]',
+      sites: {
+        listItem: '[class="central-featured"] a[class="link-box"]',
         data: {
           url: {
-            selector: 'a',
             attr: 'href',
+            convert: (x: string) => `https:${x}`,
           },
         },
       },
     },
   });
 
-  t.is(actual.urls.length, 10);
-  t.true(actual.urls[0].indexOf('//') === 0);
+  t.is(actual.sites.length, 10);
+  t.true(actual.sites[0].url.indexOf('https://') === 0);
 });
