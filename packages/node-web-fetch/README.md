@@ -21,7 +21,7 @@ It can:
     - It scrapes the specific page
     - It gathers data from the page according to the `ScrapeConfig`
   - CRAWL
-    - It scrapes the specific page and gather links
+    - It scrapes the specific page and gathers links
     - It crawls the links and scrapes each page of the link
     - It gathers data from each page according to `CrawlConfig`
 
@@ -52,7 +52,6 @@ const data = await fetch({
 });
 
 console.log(data);
-
 // {
 //   title: 'Example Domain',
 //   info: 'http://www.iana.org/domains/example'
@@ -77,7 +76,6 @@ const data = await fetch({
 });
 
 console.log(data);
-
 // {
 //   title: 'Example Domain',
 //   info: 'http://www.iana.org/domains/example'
@@ -91,7 +89,7 @@ console.log(data);
 ```js
 import fetch from '@web-master/node-web-fetch';
 
-const data = await fetch({
+const pages = await fetch({
   target: [
     'https://example1.com',
     'https://example2.com',
@@ -102,8 +100,7 @@ const data = await fetch({
   }),
 });
 
-console.log(data);
-
+console.log(pages);
 // [
 //   { title: 'An easiest crawling and scraping module for NestJS' },
 //   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
@@ -116,12 +113,12 @@ console.log(data);
 ```js
 import fetch from '@web-master/node-web-fetch';
 
-const data = await fetch({
+const pages = await fetch({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span.age > a',
-      convert: (path) => `https://news.ycombinator.com/${path}`,
+      selector: 'span[class="age"] > a',
+      convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   fetch: () => ({
@@ -129,8 +126,7 @@ const data = await fetch({
   }),
 });
 
-console.log(data);
-
+console.log(pages);
 // [
 //   { title: 'An easiest crawling and scraping module for NestJS' },
 //   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
@@ -145,12 +141,12 @@ console.log(data);
 ```js
 import fetch from '@web-master/node-web-fetch';
 
-const data = await fetch({
+const pages = await fetch({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span.age > a',
-      convert: (path) => `https://news.ycombinator.com/${path}`,
+      selector: 'span[class="age"] > a',
+      convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
@@ -159,8 +155,7 @@ const data = await fetch({
   }),
 });
 
-console.log(data);
-
+console.log(pages);
 // [
 //   { title: 'An easiest crawling and scraping module for NestJS' },
 //   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
@@ -179,12 +174,12 @@ interface HackerNewsPage {
   title: string;
 }
 
-const data: HackerNewsPage[] = await fetch({
+const pages: HackerNewsPage[] = await fetch({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span.age > a',
-      convert: (path) => `https://news.ycombinator.com/${path}`,
+      selector: 'span[class="age"] > a',
+      convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   fetch: () => ({
@@ -192,8 +187,7 @@ const data: HackerNewsPage[] = await fetch({
   }),
 });
 
-console.log(data);
-
+console.log(pages);
 // [
 //   { title: 'An easiest crawling and scraping module for NestJS' },
 //   { title: 'A minimalistic boilerplate on top of Webpack, Babel, TypeScript and React' },
