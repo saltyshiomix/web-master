@@ -2,12 +2,12 @@ import {
   ScrapeConfig,
   ScrapeOptionElement,
   ScrapeOptionList,
-  CrawlLinkOptions,
   CrawlConfig,
+  CrawlLinkOptions,
 } from '../interfaces';
 
 const getConfigType = (config: any): 'default' | 'puppeteer' => {
-  return typeof config.waitFor === 'number' ? 'puppeteer' : 'default';
+  return typeof (config as CrawlConfig).waitFor === 'number' ? 'puppeteer' : 'default';
 }
 
 const isScrapeConfig = (config: any): config is ScrapeConfig => {
@@ -23,7 +23,7 @@ const isScrapeOptionElement = (options: any): options is ScrapeOptionElement => 
 };
 
 const isScrapeOptionList = (options: any): options is ScrapeOptionList => {
-  return typeof options.listItem === 'string';
+  return typeof (options as ScrapeOptionList).listItem === 'string';
 };
 
 const isCrawlConfig = (config: any): config is CrawlConfig => {
@@ -31,7 +31,7 @@ const isCrawlConfig = (config: any): config is CrawlConfig => {
 };
 
 const isCrawlLinkOptions = (options: any): options is CrawlLinkOptions => {
-  return typeof options === 'object' && typeof options.url === 'string';
+  return typeof (options as CrawlLinkOptions).url === 'string';
 };
 
 export {
