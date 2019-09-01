@@ -6,7 +6,7 @@ import {
   CrawlConfig,
 } from '../interfaces';
 
-const getConfigType = (config: any): 'puppeteer' | 'default' => {
+const getConfigType = (config: any): 'default' | 'puppeteer' => {
   return typeof config.waitFor === 'number' ? 'puppeteer' : 'default';
 }
 
