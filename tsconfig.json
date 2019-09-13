@@ -5,9 +5,9 @@
     "strict": true,
     "sourceMap": true,
     "declaration": true,
-    "removeComments": true,
+    "removeComments": true
   },
   "exclude": [
-    "node_modules",
-  ],
+    "node_modules"
+  ]
 }
