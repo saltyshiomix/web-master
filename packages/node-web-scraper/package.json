@@ -37,7 +37,7 @@
     "domutils": "^2.0.0",
     "got": "^9.6.0",
     "htmlparser2": "^4.0.0",
-    "puppeteer": "^1.19.0"
+    "puppeteer": "^1.20.0"
   },
   "devDependencies": {
     "@types/got": "^9.6.7",
