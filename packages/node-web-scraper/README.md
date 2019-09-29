@@ -55,7 +55,7 @@ const data = await scrape({
   target: 'https://news.ycombinator.com/item?id=20821022',
   waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
   fetch: {
-    title: '[class="title"] > a',
+    title: '.title > a',
   },
 });
 
@@ -83,7 +83,7 @@ const wiki: Wikipedia = await scrape({
   target: 'https://www.wikipedia.org',
   fetch: {
     sites: {
-      listItem: '[class="central-featured"] a[class="link-box"]',
+      listItem: '.central-featured a.link-box',
       data: {
         url: {
           attr: 'href',
