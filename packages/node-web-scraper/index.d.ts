@@ -1,15 +1,18 @@
-import scrape from './dist/packages/node-web-scraper/lib/index';
+import scrape from './dist/lib/index';
+import { ScrapeConfig } from './dist/interfaces';
 import {
-  ScrapeConfig,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
-} from './dist/interfaces';
+  ScrapeResult,
+} from 'scrape-it';
 
 export default scrape;
+
 export {
   ScrapeConfig,
   ScrapeOptions,
   ScrapeOptionElement,
   ScrapeOptionList,
+  ScrapeResult,
 };

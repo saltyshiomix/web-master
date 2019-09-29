@@ -1,16 +1,8 @@
-import * as got from 'got';
-import * as htmlparser2 from 'htmlparser2';
-import { Node } from 'domhandler';
-import { ScrapeConfig } from '../../../../interfaces';
-import core from './core';
+import * as scrapeIt from 'scrape-it';
+import { ScrapeConfig } from '../../interfaces';
 
-async function scrape<T>(config: ScrapeConfig): Promise<T> {
+export default async function scrape<T>(config: ScrapeConfig): Promise<T> {
   const { target, fetch } = config;
-  const { body } = await got(target);
-  const nodes: Node[] = htmlparser2.parseDOM(body, {
-    normalizeWhitespace: true,
-  });
-  return core(fetch, nodes);
+  const { data } = await scrapeIt<T>(target, fetch);
+  return data;
 }
-
-export default scrape;

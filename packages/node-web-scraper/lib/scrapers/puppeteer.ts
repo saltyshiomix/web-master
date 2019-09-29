@@ -1,10 +1,10 @@
+import * as scrapeIt from 'scrape-it';
 import * as puppeteer from 'puppeteer';
-import * as htmlparser2 from 'htmlparser2';
-import { Node } from 'domhandler';
-import { ScrapeConfig } from '../../../../interfaces';
-import core from './core';
+import { ScrapeConfig } from '../../interfaces';
 
-const parseDOM = async (url: string, waitFor: number): Promise<Node[]> => {
+export default async function scrape<T>(config: ScrapeConfig): Promise<T> {
+  const { target, waitFor, fetch } = config;
+
   const browser = await puppeteer.launch({
     args: [
       '--no-sandbox',
@@ -13,24 +13,16 @@ const parseDOM = async (url: string, waitFor: number): Promise<Node[]> => {
   });
 
   const page = await browser.newPage();
-  await page.goto(url);
-  await page.waitFor(waitFor);
+  await page.goto(target);
+  if (waitFor) {
+    await page.waitFor(waitFor);
+  }
 
   const handle = await page.evaluateHandle(() => document.documentElement.innerHTML);
   const dom: string = await handle.jsonValue();
-  const nodes = htmlparser2.parseDOM(dom, {
-    normalizeWhitespace: true,
-  });
+  const data = await scrapeIt.scrapeHTML<T>(dom, fetch);
 
   await browser.close();
 
-  return nodes;
-};
-
-async function scrape<T>(config: ScrapeConfig): Promise<T> {
-  const { target, waitFor, fetch } = config;
-  const nodes: Node[] = await parseDOM(target, waitFor as number);
-  return core(fetch, nodes);
+  return data;
 }
-
-export default scrape;

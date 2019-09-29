@@ -34,36 +34,6 @@ test('it can scrape one attribute', async t => {
   t.is(actual.info, 'http://www.iana.org/domains/example');
 });
 
-test('it can scrape first tag', async t => {
-  interface ExampleCom {
-    description: string;
-  }
-
-  const actual: ExampleCom = await scrape({
-    target: 'http://example.com',
-    fetch: {
-      description: 'p',
-    },
-  });
-
-  t.is(actual.description, 'This domain is established to be used for illustrative examples in documents. You may use this domain in examples without prior coordination or asking for permission.');
-});
-
-test('it can scrape text content', async t => {
-  interface ExampleCom {
-    body: string;
-  }
-
-  const actual: ExampleCom = await scrape({
-    target: 'http://example.com',
-    fetch: {
-      body: 'div',
-    },
-  });
-
-  t.is(actual.body, 'Example Domain This domain is established to be used for illustrative examples in documents. You may use this domain in examples without prior coordination or asking for permission. More information...');
-});
-
 test('it can scrape one hacker news title', async t => {
   interface HackerNews {
     title: string;
@@ -72,7 +42,7 @@ test('it can scrape one hacker news title', async t => {
   const actual: HackerNews = await scrape({
     target: 'https://news.ycombinator.com/item?id=20821022',
     fetch: {
-      title: '[class="title"] > a',
+      title: '.title > a',
     },
   });
 
@@ -135,7 +105,7 @@ test('it can scrape one page as a list object', async t => {
     target: 'https://www.wikipedia.org',
     fetch: {
       sites: {
-        listItem: '[class="central-featured"] a[class="link-box"]',
+        listItem: '.central-featured a.link-box',
         data: {
           url: {
             attr: 'href',
