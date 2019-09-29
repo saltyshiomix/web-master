@@ -16,6 +16,29 @@ test('it can scrape one tag', async t => {
   t.is(actual.title, 'Example Domain');
 });
 
+test('it can scrape one innerHTML', async t => {
+  interface ExampleCom {
+    title: string;
+  }
+
+  const actual: ExampleCom = await scrape({
+    target: 'http://example.com',
+    fetch: {
+      title: {
+        selector: 'div',
+        how: 'html',
+        trim: true,
+      },
+    },
+  });
+
+  t.is(actual.title, 
+`<h1>Example Domain</h1>
+    <p>This domain is established to be used for illustrative examples in documents. You may use this
+    domain in examples without prior coordination or asking for permission.</p>
+    <p><a href="http://www.iana.org/domains/example">More information...</a></p>`);
+});
+
 test('it can scrape one attribute', async t => {
   interface ExampleCom {
     info: string;
