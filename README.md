@@ -1,5 +1,5 @@
-<p align="center">😎 Web Master 😎</p>
-<p align="center">Web mastering tools</p>
+<p align="center">😎 @web-master 😎</p>
+<p align="center">Web Mastering Tools</p>
 
 ## Packages
 
@@ -11,7 +11,7 @@
 
 ## Roadmaps
 
-- [ ] README
+- [x] README
 - [ ] packages
   - [x] @web-master/node-web-fetch
   - [x] @web-master/node-web-scraper
