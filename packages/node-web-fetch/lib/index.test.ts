@@ -53,12 +53,12 @@ test('it can crawl multi pages', async t => {
     target: {
       url: 'https://news.ycombinator.com',
       iterator: {
-        selector: 'span[class="age"] > a',
+        selector: 'span.age > a',
         convert: (x: string) => `https://news.ycombinator.com/${x}`,
       },
     },
     fetch: () => ({
-      title: '[class="title"] > a',
+      title: '.title > a',
     }),
   });
 
@@ -75,13 +75,13 @@ test('it can crawl multi pages (waitable)', async t => {
     target: {
       url: 'https://news.ycombinator.com',
       iterator: {
-        selector: 'span[class="age"] > a',
+        selector: 'span.age > a',
         convert: (x: string) => `https://news.ycombinator.com/${x}`,
       },
     },
     waitFor: 1 * 1000,
     fetch: () => ({
-      title: '[class="title"] > a',
+      title: '.title> a',
     }),
   });
 

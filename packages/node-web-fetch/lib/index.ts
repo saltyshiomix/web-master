@@ -1,13 +1,13 @@
-import scrape from '@web-master/node-web-scraper';
-import crawl from '@web-master/node-web-crawler';
-import {
-  ScrapeConfig,
-  CrawlConfig,
-} from '../../../interfaces';
-import {
-  isScrapeConfig,
-  isCrawlConfig,
-} from '../../../utils';
+import scrape, { ScrapeConfig } from '@web-master/node-web-scraper';
+import crawl, { CrawlConfig } from '@web-master/node-web-crawler';
+
+const isScrapeConfig = (config: any): config is ScrapeConfig => {
+  return typeof (config as ScrapeConfig).target === 'string';
+};
+
+const isCrawlConfig = (config: any): config is CrawlConfig => {
+  return !isScrapeConfig(config);
+};
 
 async function fetch<T>(config: ScrapeConfig | CrawlConfig): Promise<T> {
   let result: any;

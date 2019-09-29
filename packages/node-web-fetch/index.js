@@ -1,3 +1,3 @@
-const fetch = require('./dist/packages/node-web-fetch/lib/index').default;
+const fetch = require('./dist').default;
 module.exports = fetch;
 module.exports.default = fetch;
