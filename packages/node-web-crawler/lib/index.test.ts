@@ -16,7 +16,7 @@ test('it can crawl multi pages', async t => {
     },
     fetch: (data: any, index: number, url: string) => {
       return {
-        title: '[class="title"] > a',
+        title: '.title > a',
       };
     },
   });
@@ -34,13 +34,13 @@ test('it can crawl multi pages (waitable)', async t => {
     target: {
       url: 'https://news.ycombinator.com',
       iterator: {
-        selector: 'span[class="age"] > a',
+        selector: '.age > a',
         convert: (x: string) => `https://news.ycombinator.com/${x}`,
       },
     },
     waitFor: 1 * 1000,
     fetch: (data: any, index: number, url: string) => ({
-      title: '[class="title"] > a',
+      title: '.title > a',
     }),
   });
 

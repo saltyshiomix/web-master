@@ -1,12 +1,16 @@
-import scrape from '@web-master/node-web-scraper';
-import {
-  UrlHolder,
+import scrape, {
   ScrapeConfig,
   ScrapeOptions,
+} from '@web-master/node-web-scraper';
+import {
+  UrlHolder,
   CrawlConfig,
   CrawlLinkOptions,
-} from '../../../interfaces';
-import { isCrawlLinkOptions } from '../../../utils';
+} from '../interfaces';
+
+const isCrawlLinkOptions = (options: any): options is CrawlLinkOptions => {
+  return typeof (options as CrawlLinkOptions).url === 'string';
+};
 
 const extractUrls = (holder: UrlHolder, convert?: (link: string) => string): string[] => {
   const urls: string[] = [];

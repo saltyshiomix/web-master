@@ -32,12 +32,12 @@ const data = await crawl({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span[class="age"] > a',
+      selector: 'span.age > a',
       convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   fetch: () => ({
-    title: '[class="title"] > a',
+    title: '.title > a',
   }),
 });
 
@@ -61,13 +61,13 @@ const data = await crawl({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span[class="age"] > a',
+      selector: 'span.age > a',
       convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   waitFor: 3 * 1000, // wait for the content loaded! (like single page apps)
   fetch: () => ({
-    title: '[class="title"] > a',
+    title: '.title > a',
   }),
 });
 
@@ -94,12 +94,12 @@ const pages: HackerNewsPage[] = await crawl({
   target: {
     url: 'https://news.ycombinator.com',
     iterator: {
-      selector: 'span[class="age"] > a',
+      selector: 'span.age > a',
       convert: (x) => `https://news.ycombinator.com/${x}`,
     },
   },
   fetch: () => ({
-    title: '[class="title"] > a',
+    title: '.title > a',
   }),
 });
 
@@ -117,3 +117,4 @@ console.log(pages);
 
 - [@web-master/node-web-fetch](https://github.com/saltyshiomix/web-master/blob/master/packages/node-web-fetch)
 - [@web-master/node-web-scraper](https://github.com/saltyshiomix/web-master/blob/master/packages/node-web-scraper)
+- [IonicaBizau/scrape-it](https://github.com/IonicaBizau/scrape-it)
