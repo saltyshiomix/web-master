@@ -107,5 +107,6 @@ console.log(wiki.sites);
 
 ## Related
 
+- [IonicaBizau/scrape-it](https://github.com/IonicaBizau/scrape-it)
 - [@web-master/node-web-fetch](https://github.com/saltyshiomix/web-master/blob/master/packages/node-web-fetch)
 - [@web-master/node-web-crawler](https://github.com/saltyshiomix/web-master/blob/master/packages/node-web-crawler)
