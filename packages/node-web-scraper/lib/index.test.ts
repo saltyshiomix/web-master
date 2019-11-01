@@ -36,7 +36,7 @@ test('it can scrape one innerHTML', async t => {
 `<h1>Example Domain</h1>
     <p>This domain is established to be used for illustrative examples in documents. You may use this
     domain in examples without prior coordination or asking for permission.</p>
-    <p><a href="http://www.iana.org/domains/example">More information...</a></p>`);
+    <p><a href="https://www.iana.org/domains/example">More information...</a></p>`);
 });
 
 test('it can scrape one attribute', async t => {
@@ -54,7 +54,7 @@ test('it can scrape one attribute', async t => {
     },
   });
 
-  t.is(actual.info, 'http://www.iana.org/domains/example');
+  t.is(actual.info, 'https://www.iana.org/domains/example');
 });
 
 test('it can scrape one hacker news title', async t => {
@@ -90,7 +90,7 @@ test('it can scrape one page as a object', async t => {
   });
 
   t.is(actual.title, 'Example Domain');
-  t.is(actual.info, 'http://www.iana.org/domains/example');
+  t.is(actual.info, 'https://www.iana.org/domains/example');
 });
 
 test('it can scrape one page as a object (waitable)', async t => {
@@ -112,7 +112,7 @@ test('it can scrape one page as a object (waitable)', async t => {
   });
 
   t.is(actual.title, 'Example Domain');
-  t.is(actual.info, 'http://www.iana.org/domains/example');
+  t.is(actual.info, 'https://www.iana.org/domains/example');
 });
 
 test('it can scrape one page as a list object', async t => {
