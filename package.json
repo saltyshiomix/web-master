@@ -1,7 +1,4 @@
 {
   "private": true,
-  "name": "web-master",
-  "devDependencies": {
-    "lerna": "^3.16.4"
-  }
+  "name": "web-master"
 }
