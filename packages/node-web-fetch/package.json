@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.3",
-    "ava": "^2.3.0",
+    "ava": "^2.4.0",
     "rimraf": "^3.0.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.6.4"
